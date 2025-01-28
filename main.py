@@ -44,3 +44,7 @@ def delete_todo(todo_id: int):
     global todo_list
     todo_list = [todo for todo in todo_list if todo.id != todo_id]
     return RedirectResponse(url="/", status_code=303)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
