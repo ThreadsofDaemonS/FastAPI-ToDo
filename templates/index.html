@@ -1,0 +1,32 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <form action="/add" method="post" class="add-form">
+            <input type="text" name="title" placeholder="Add a new task" required>
+            <button type="submit">Add</button>
+        </form>
+        <ul class="todo-list">
+            {% for todo in todo_list %}
+                <li class="{{ 'completed' if todo.completed else '' }}">
+                    <form action="/toggle/{{ todo.id }}" method="post" class="inline-form">
+                        <button type="submit" class="toggle-btn">{{ '✔' if todo.completed else '⬜' }}</button>
+                    </form>
+                    <span>{{ todo.title }}</span>
+                    <form action="/delete/{{ todo.id }}" method="post" class="inline-form delete-form">
+                        <button type="submit">❌</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
