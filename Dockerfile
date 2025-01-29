@@ -1,18 +1,18 @@
 # Dockerfile
-# Используем официальный образ Python
+# Using the official Python image
 FROM python:3.11-slim
 
-# Устанавливаем рабочую директорию
+# Set the working directory
 WORKDIR /app
 
-# Копируем файлы приложения в контейнер
+# Copy application files into the container
 COPY . /app
 
-# Устанавливаем зависимости
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Открываем порт 8000 для приложения
+# Expose port 8000 for the application
 EXPOSE 8000
 
-# Команда для запуска приложения
+# Command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

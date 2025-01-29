@@ -1,7 +1,6 @@
 from decouple import config
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base  # ✅ Используем Base из models.py
 
 DATABASE_URL = config('DATABASE_URL')
 
