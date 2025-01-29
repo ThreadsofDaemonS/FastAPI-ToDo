@@ -14,6 +14,7 @@
             <input type="text" name="title" placeholder="Add a new task" required>
             <button type="submit">Add</button>
         </form>
+        {% if todo_list %}
         <ul class="todo-list">
             {% for todo in todo_list %}
                 <li class="{{ 'completed' if todo.completed else '' }}">
@@ -21,12 +22,27 @@
                         <button type="submit" class="toggle-btn">{{ '✔' if todo.completed else '⬜' }}</button>
                     </form>
                     <span>{{ todo.title }}</span>
-                    <form action="/delete/{{ todo.id }}" method="post" class="inline-form delete-form">
+                    <form onsubmit="deleteTodo(event, {{ todo.id }})" class="inline-form delete-form">
                         <button type="submit">❌</button>
                     </form>
                 </li>
             {% endfor %}
         </ul>
+        {% else %}
+            <p class="empty-message">No tasks available. Add a new task above.</p>
+        {% endif %}
     </div>
+
+    <script>
+        async function deleteTodo(event, todoId) {
+            event.preventDefault();
+            const response = await fetch(`/delete/${todoId}`, { method: 'DELETE' });
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                alert("Error deleting task.");
+            }
+        }
+    </script>
 </body>
 </html>
